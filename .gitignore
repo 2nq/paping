@@ -1,0 +1,12 @@
+bin/
+*.o
+*.obj
+*.exe
+*.ilk
+*.pdb
+*.user
+*.suo
+*.ncb
+*.sdf
+.vs/
+.claude/
