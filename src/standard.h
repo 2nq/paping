@@ -15,7 +15,6 @@
 #define YEAR	((((__DATE__ [7] - '0') * 10 + (__DATE__ [8] - '0')) * 10 + (__DATE__ [9] - '0')) * 10 + (__DATE__ [10] - '0'))
 
 // snprintf is available in g++ natively — no redefinition needed
-// close() -> closesocket() handled directly in socket.cpp
 
 // Error codes
 #define	SUCCESS						0
@@ -38,6 +37,7 @@
 	#include <netdb.h>
 	#include <unistd.h>
 	#include <sys/time.h>
+	#define closesocket close
 #else
 	#include "gettimeofday.h"
 #endif

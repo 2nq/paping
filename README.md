@@ -53,3 +53,8 @@ g++ -o paping.exe -DWIN32 -std=c++11 src/main.cpp src/socket.cpp src/host.cpp sr
 
 **Windows (Visual Studio):**  
 Open `paping_vs2010/paping_vs2010.sln`
+
+**Linux:**
+```
+make
+```
