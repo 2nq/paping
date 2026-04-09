@@ -5,12 +5,13 @@
 	#define _CRT_SECURE_NO_WARNINGS 1
 	#pragma comment(lib, "ws2_32.lib")
 	// Include Windows headers first to avoid type conflicts
-	#include <Windows.h>
 	#include <WinSock2.h>
+	#include <ws2tcpip.h>
+	#include <Windows.h>
 	#include <time.h>
 #endif
 
-#define	VERSION	"1.5.5"
+#define	VERSION	"2.0"
 #define	AUTHOR	"Mike Lovell"
 #define YEAR	((((__DATE__ [7] - '0') * 10 + (__DATE__ [8] - '0')) * 10 + (__DATE__ [9] - '0')) * 10 + (__DATE__ [10] - '0'))
 

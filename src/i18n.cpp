@@ -33,7 +33,7 @@ pcc_t i18n_c::GetString(int id)
 		case STRING_CONNECT_INFO_FULL:			return	"Connecting to $%s$ [$%s$] on $%s %d$:";
 		case STRING_CONNECT_INFO_IP:			return	"Connecting to $%s$ on $%s %d$:";
 		case STRING_CONNECT_SUCCESS:			return	"Connected to $%s$: time=$%.2fms$ protocol=$%s$ port=$%d$";
-		case STRING_CONNECT_SUCCESS_ASN:		return	"Connected to $%s$ [$%s$] time=$%.2fms$ protocol=$%s$ port=$%d$";
+		case STRING_CONNECT_SUCCESS_ASN:		return	"Connected to $%s$: time=$%.2fms$ protocol=$%s$ port=$%d$ | %s";
 		default:								return	"[ERROR: No translation]";
 	}
 }

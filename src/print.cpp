@@ -92,7 +92,7 @@ void print_c::SetColor(int color)
 	#ifdef _WIN32
 	HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
 
-	if (print_c::initialColors_ == NULL)
+	if (print_c::initialColors_ == 0)
 	{
 		CONSOLE_SCREEN_BUFFER_INFO *bufferInfo = new CONSOLE_SCREEN_BUFFER_INFO();
 	
@@ -111,7 +111,7 @@ void print_c::SetColor(int color)
 void  print_c::ResetColor()
 {
 	#ifdef _WIN32
-	if (print_c::initialColors_ != NULL)
+	if (print_c::initialColors_ != 0)
 	{
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), print_c::initialColors_);
 	}

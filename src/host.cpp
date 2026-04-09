@@ -17,8 +17,8 @@ int	host_c::GetSuccessfulConnectionString(pcc_t str, double time)
 	if (this->ASNInfo[0] != '\0')
 	{
 		pcc_t format = i18n_c::GetString(STRING_CONNECT_SUCCESS_ASN);
-		length = snprintf(NULL, 0, format, this->IPAddressString(), this->ASNInfo, time, socket_c::GetFriendlyTypeName(this->Type), this->Port);
-		if (str != NULL) sprintf((pc_t)str, format, this->IPAddressString(), this->ASNInfo, time, socket_c::GetFriendlyTypeName(this->Type), this->Port);
+		length = snprintf(NULL, 0, format, this->IPAddressString(), time, socket_c::GetFriendlyTypeName(this->Type), this->Port, this->ASNInfo);
+		if (str != NULL) sprintf((pc_t)str, format, this->IPAddressString(), time, socket_c::GetFriendlyTypeName(this->Type), this->Port, this->ASNInfo);
 	}
 	else
 	{
