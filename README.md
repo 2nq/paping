@@ -31,11 +31,11 @@ paping v2.0
 
 Connecting to 1.1.1.1 on TCP 443:
 
-Connected to 1.1.1.1 [AS13335 Cloudflare, Inc.] time=8.00ms protocol=TCP port=443
-Connected to 1.1.1.1 [AS13335 Cloudflare, Inc.] time=8.97ms protocol=TCP port=443
-Connected to 1.1.1.1 [AS13335 Cloudflare, Inc.] time=9.21ms protocol=TCP port=443
-Connected to 1.1.1.1 [AS13335 Cloudflare, Inc.] time=8.51ms protocol=TCP port=443
-Connected to 1.1.1.1 [AS13335 Cloudflare, Inc.] time=8.78ms protocol=TCP port=443
+Connected to 1.1.1.1: time=8.00ms protocol=TCP port=443 | AS13335 Cloudflare, Inc.
+Connected to 1.1.1.1: time=8.97ms protocol=TCP port=443 | AS13335 Cloudflare, Inc.
+Connected to 1.1.1.1: time=9.21ms protocol=TCP port=443 | AS13335 Cloudflare, Inc.
+Connected to 1.1.1.1: time=8.51ms protocol=TCP port=443 | AS13335 Cloudflare, Inc.
+Connected to 1.1.1.1: time=8.78ms protocol=TCP port=443 | AS13335 Cloudflare, Inc.
 
 Connection statistics:
         Attempted = 5, Connected = 5, Failed = 0 (0.00%)
