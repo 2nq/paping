@@ -27,7 +27,7 @@ paping 1.1.1.1 -p 443 -c 5
 ```
 
 ```
-paping v1.5.5 - Copyright (c) 2026 Mike Lovell
+paping v2.0
 
 Connecting to 1.1.1.1 on TCP 443:
 
