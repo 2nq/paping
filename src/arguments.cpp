@@ -27,9 +27,14 @@ int	arguments_c::Process(int argc, pc_t argv[], arguments_c &arguments)
 	arguments.Source	= 0;
 	arguments.Count		= 0;
 	arguments.Timeout	= 1000;
+	arguments.Interval	= 1000;
 	arguments.Type		= IPPROTO_TCP;
 	arguments.Continous	= true;
+#ifndef WIN32
+	arguments.UseColor	= isatty(STDOUT_FILENO);
+#else
 	arguments.UseColor	= true;
+#endif
 
 	for (int i=1; i<argc; i++)
 	{
@@ -38,6 +43,7 @@ int	arguments_c::Process(int argc, pc_t argv[], arguments_c &arguments)
 		if (result = arguments_c::match(i, argc, argv, "-p", "--port", true, arguments.Port, anyMatch) != SUCCESS) return result;
 		if (result = arguments_c::match(i, argc, argv, "-c", "--count", true, arguments.Count, anyMatch) != SUCCESS) return result;
 		if (result = arguments_c::match(i, argc, argv, "-t", "--timeout", true, arguments.Timeout, anyMatch) != SUCCESS) return result;
+		if (result = arguments_c::match(i, argc, argv, "-i", "--interval", true, arguments.Interval, anyMatch) != SUCCESS) return result;
 		if (result = arguments_c::match(i, argc, argv, NULL, "--ip-bind", true, arguments.Source, anyMatch) != SUCCESS) return result;
 
 		if (anyMatch)

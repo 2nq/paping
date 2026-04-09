@@ -40,14 +40,20 @@ void host_c::LookupASN(const char* ip, char* buf, int buflen)
 	if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) return;
 #endif
 
-	struct hostent* h = gethostbyname("ip-api.com");
-	if (!h)
+	struct addrinfo hints = {}, *res = NULL;
+	hints.ai_family   = AF_INET;
+	hints.ai_socktype = SOCK_STREAM;
+
+	if (getaddrinfo("ip-api.com", "80", &hints, &res) != 0 || !res)
 	{
 #ifdef WIN32
 		WSACleanup();
 #endif
 		return;
 	}
+
+	sockaddr_in addr = *(sockaddr_in*)res->ai_addr;
+	freeaddrinfo(res);
 
 	int sock = (int)socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	if (sock == -1)
@@ -67,11 +73,6 @@ void host_c::LookupASN(const char* ip, char* buf, int buflen)
 	setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv));
 	setsockopt(sock, SOL_SOCKET, SO_SNDTIMEO, &tv, sizeof(tv));
 #endif
-
-	sockaddr_in addr;
-	addr.sin_family		= AF_INET;
-	addr.sin_addr		= *(in_addr*)h->h_addr_list[0];
-	addr.sin_port		= htons(80);
 
 	if (connect(sock, (sockaddr*)&addr, sizeof(addr)) != 0)
 	{

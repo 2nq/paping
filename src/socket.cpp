@@ -4,25 +4,32 @@ using namespace std;
 
 int socket_c::Resolve(pcc_t hostname, host_c &host)
 {
-	hostent*	remoteHost	= NULL;
-
 	#ifdef WIN32	// Init Winsock in Windows
 		WSADATA	wsaData;
 		if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) return ERROR_SOCKET_GENERALFAILURE;
 	#endif
 
-	remoteHost = gethostbyname(hostname);
+	struct addrinfo hints = {}, *res = NULL;
+	hints.ai_family   = AF_INET;
+	hints.ai_socktype = SOCK_STREAM;
 
-	#ifdef WIN32	// Cleanup Winsock in Windows
+	if (getaddrinfo(hostname, NULL, &hints, &res) != 0 || res == NULL)
+	{
+		#ifdef WIN32
+			WSACleanup();
+		#endif
+		return ERROR_SOCKET_CANNOTRESOLVE;
+	}
+
+	host.IPAddress = ((sockaddr_in*)res->ai_addr)->sin_addr;
+	host.Hostname  = hostname;
+	host.HostIsIP  = (inet_addr(hostname) != INADDR_NONE);
+
+	freeaddrinfo(res);
+
+	#ifdef WIN32
 		WSACleanup();
 	#endif
-
-	if (remoteHost == NULL) return ERROR_SOCKET_CANNOTRESOLVE;
-
-	host.IPAddress	= *(in_addr*)remoteHost->h_addr_list[0];
-	host.Hostname	= hostname;
-
-	host.HostIsIP = (inet_addr(hostname) != INADDR_NONE);
 
 	return SUCCESS;
 }
@@ -124,8 +131,8 @@ int socket_c::Connect(host_c host, int timeout, double &time)
 	FD_SET(clientSocket, &write);
 	
 	result = select(clientSocket + 1, &read, &write, NULL, &tv);
-	
-	if (result != 1)
+
+	if (result <= 0)
 	{
 		closesocket(clientSocket);
 
@@ -136,17 +143,27 @@ int socket_c::Connect(host_c host, int timeout, double &time)
 		return ERROR_SOCKET_TIMEOUT;
 	}
 
-	time		= timer.Stop();
+	time = timer.Stop();
 
-	if (!FD_ISSET(clientSocket, &read) && !FD_ISSET(clientSocket, &write))
+	// Check whether the connection actually succeeded
+	int sockErr = 0;
+	#ifdef WIN32
+		int sockErrLen = sizeof(sockErr);
+		getsockopt(clientSocket, SOL_SOCKET, SO_ERROR, (char*)&sockErr, &sockErrLen);
+	#else
+		socklen_t sockErrLen = sizeof(sockErr);
+		getsockopt(clientSocket, SOL_SOCKET, SO_ERROR, &sockErr, &sockErrLen);
+	#endif
+
+	if (sockErr != 0)
 	{
 		closesocket(clientSocket);
 
-		#ifdef WIN32	// Cleanup Winsock in Windows
+		#ifdef WIN32
 			WSACleanup();
 		#endif
 
-		return ERROR_SOCKET_TIMEOUT;
+		return ERROR_SOCKET_REFUSED;
 	}
 
 	closesocket(clientSocket);

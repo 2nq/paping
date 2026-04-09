@@ -6,9 +6,10 @@ class arguments_c
 	public:
 		pcc_t	Destination;
 		int		Port;
-		int Source;
+		int		Source;
 		int		Type;
 		int		Timeout;
+		int		Interval;
 		int		Count;
 		bool	Continous;
 		bool	UseColor;

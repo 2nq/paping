@@ -100,10 +100,12 @@ int main(int argc, pc_t argv[])
 			printFailedConnection(result);
 		}
 
-		#ifdef WIN32	// Windows cannot sleep to that accuracy (I think!)
-			if ((int)time < 1000) Sleep((1000 - (int)time));
+		#ifdef WIN32
+			int sleepMs = arguments.Interval - (int)time;
+			if (sleepMs > 0) Sleep(sleepMs);
 		#else
-			if ((int)time < 1000) usleep((1000 - (int)time) * 1000);
+			int sleepMs = arguments.Interval - (int)time;
+			if (sleepMs > 0) usleep(sleepMs * 1000);
 		#endif
 
 		i++;

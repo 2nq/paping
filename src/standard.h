@@ -22,6 +22,7 @@
 #define	ERROR_SOCKET_CANNOTRESOLVE	101
 #define	ERROR_SOCKET_TIMEOUT		102
 #define	ERROR_SOCKET_GENERALFAILURE	103
+#define	ERROR_SOCKET_REFUSED		104
 #define	ERROR_INVALIDARGUMENTS		200
 
 
@@ -37,6 +38,7 @@
 	#include <netdb.h>
 	#include <unistd.h>
 	#include <sys/time.h>
+	#include <unistd.h>
 	#define closesocket close
 #else
 	#include "gettimeofday.h"

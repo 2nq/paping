@@ -12,9 +12,10 @@ paping [options] destination
 
 | Flag | Description |
 |------|-------------|
-| `-p, --port N` | TCP port to connect to (required) |
+| `-p, --port N` | TCP port to connect to **(required)** |
 | `-c, --count N` | Number of probes (default: continuous) |
 | `-t, --timeout N` | Timeout in milliseconds (default: 1000) |
+| `-i, --interval N` | Interval between probes in milliseconds (default: 1000) |
 | `--ip-bind` | Bind to a specific source IP |
 | `--nocolor` | Disable colored output |
 | `-?, --help` | Show usage |
